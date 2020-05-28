@@ -1,0 +1,17 @@
+.header-com{
+    background-color: black;
+    height:35px;
+
+}
+.head{
+    height: 45%;
+}
+.app-logo {
+    animation: app-logo-spin infinite 8s linear;
+    height: 35px;
+    background: #ff7f7f;
+ }
+ 
+ @keyframes app-logo-spin {
+    from { transform: scaleX(-1); }
+ }
