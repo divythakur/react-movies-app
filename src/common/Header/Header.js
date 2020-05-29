@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import './Header.css'
 import Modal from 'react-modal'
 
-import  Button  from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
-
+import PropTypes from 'prop-types';
 
 const setstyle = {
     content: {
@@ -23,12 +23,15 @@ const setstyle = {
 
 const TabContainer = function (props) {
     return (
-        <Typography component="div" style={{ padding: "0",textAlign:"center" }}>
+        <Typography component="div" style={{ padding: "0", textAlign: "center" }}>
             {props.children}
         </Typography>
 
 
     )
+}
+TabContainer.propTypes = {
+    children: PropTypes.node.isRequired
 }
 class Header extends Component {
     constructor() {
@@ -63,17 +66,21 @@ class Header extends Component {
                         <Tab label="login" />
                         <Tab label="register" />
                     </Tabs>
+                    {this.state.value===0 &&
                     <TabContainer>
-                        <FormControl required>
-                            <InputLabel htmlFor="username">username</InputLabel>
-                            <Input id="username" type="text" required/>
-                        </FormControl><br />
-                        <FormControl required>
-                            <InputLabel htmlFor="password">password</InputLabel>
-                            <Input id="password" type="password" required/>
-                        </FormControl><br/><br/>
-                        <Button variant="contained" color="primary">LOGIN</Button>
-                    </TabContainer>
+                       
+                            <FormControl required>
+                                <InputLabel htmlFor="username">username</InputLabel>
+                                <Input id="username" type="text" required />
+                            </FormControl><br />
+                            <FormControl required>
+                                <InputLabel htmlFor="password">password</InputLabel>
+                                <Input id="password" type="password" required />
+                            </FormControl><br /><br />
+                            <Button variant="contained" color="primary">LOGIN</Button>
+                        
+                    </TabContainer>}
+
 
 
                 </Modal>
