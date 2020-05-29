@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Header.css'
 import Modal from 'react-modal'
 
-import { Button } from '@material-ui/core/Button';
+import  Button  from '@material-ui/core/Button';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -23,7 +23,7 @@ const setstyle = {
 
 const TabContainer = function (props) {
     return (
-        <Typography component="div" style={{ padding: "0" }}>
+        <Typography component="div" style={{ padding: "0",textAlign:"center" }}>
             {props.children}
         </Typography>
 
@@ -59,7 +59,7 @@ class Header extends Component {
                 <Modal ariaHideApp={false} isOpen={this.state.modalIsOpen} contentLabel="Login"
                     onRequestClose={this.closeModelHandler} style={setstyle}>
 
-                    <Tabs value={this.state.value} onChange={this.tabChangeHandler}>
+                    <Tabs className="tabs" value={this.state.value} onChange={this.tabChangeHandler}>
                         <Tab label="login" />
                         <Tab label="register" />
                     </Tabs>
@@ -67,11 +67,12 @@ class Header extends Component {
                         <FormControl required>
                             <InputLabel htmlFor="username">username</InputLabel>
                             <Input id="username" type="text" required/>
-                        </FormControl>
+                        </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="password">password</InputLabel>
                             <Input id="password" type="password" required/>
-                        </FormControl>
+                        </FormControl><br/><br/>
+                        <Button variant="contained" color="primary">LOGIN</Button>
                     </TabContainer>
 
 
