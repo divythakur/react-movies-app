@@ -18,3 +18,12 @@
  .tabs{
      margin-bottom: 20px;
  }
+ .dispnone{
+     display: none;
+ }
+ .red{
+     color: red;
+ }
+ .dispblock{
+     display:block;
+ }

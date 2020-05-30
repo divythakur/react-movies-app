@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 const setstyle = {
     content: {
@@ -38,7 +39,9 @@ class Header extends Component {
         super();
         this.state = {
             modalIsOpen: false,
-            value: 0
+            value: 0,
+            usernameRequired:"dispnone",
+            username:""
 
         };
     }
@@ -51,6 +54,12 @@ class Header extends Component {
     tabChangeHandler = (event, value) => {
         this.setState({ value });
 
+    }
+    onLoginClickHandler=()=>{
+        this.state.username===""?this.setState({usernameRequired:"dispblock"}):this.setState({usernameRequired:"dispnone"})
+    }
+    onUsernameChangeHandler=(e)=>{
+        this.setState({username:e.target.value})
     }
     render() {
         return (
@@ -71,13 +80,14 @@ class Header extends Component {
                        
                             <FormControl required>
                                 <InputLabel htmlFor="username">username</InputLabel>
-                                <Input id="username" type="text" required />
+                                <Input id="username" type="text" username={this.state.username} onChange={this.onUsernameChangeHandler}/>
+                                <FormHelperText className={this.state.usernameRequired}><span className="red">Required</span></FormHelperText>
                             </FormControl><br />
                             <FormControl required>
                                 <InputLabel htmlFor="password">password</InputLabel>
                                 <Input id="password" type="password" required />
                             </FormControl><br /><br />
-                            <Button variant="contained" color="primary">LOGIN</Button>
+                            <Button variant="contained" color="primary" onClick={this.onLoginClickHandler}>LOGIN</Button>
                         
                     </TabContainer>}
 
