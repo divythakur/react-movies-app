@@ -3,6 +3,7 @@ import './Home.css';
 import Header from '../../common/Header/Header.js';
 import { withStyles } from '@material-ui/core/styles';
 import moviesData from '../../common/moviesData'
+import genres from '../home/genres'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -11,7 +12,12 @@ import CardContent from '@material-ui/core/CardContent'
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input'
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem'
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -36,19 +42,28 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         minWidth: 240,
         maxWidth: 240
-     },
-     title: {
+    },
+    title: {
         color: theme.palette.primary.light,
-     }
+    }
 });
 
 
 class Home extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state={
-            moviename:""
+        this.state = {
+            moviename: "",
+            genres: []
         }
+    }
+    onnamechangeHandler = (e) => {
+        this.setState({ moviename: e.target.value });
+        console.log(this.state.moviename);
+    }
+    genrechangeHandler = (e) => {
+        this.setState({genres:e.target.value})
+
     }
     render() {
         const { classes } = this.props;
@@ -60,11 +75,11 @@ class Home extends Component {
                 </div>
                 <GridList cols={5} className={classes.gridListUpcomingMovies}>
                     {moviesData.map(movie => {
-                        return(
-                        <GridListTile key={movie.id}>
-                            <img src={movie.poster_url} alt={movie.title} className="movie-poster" />
-                            <GridListTileBar title={movie.title} />
-                        </GridListTile>
+                        return (
+                            <GridListTile key={movie.id}>
+                                <img src={movie.poster_url} alt={movie.title} className="movie-poster" />
+                                <GridListTileBar title={movie.title} />
+                            </GridListTile>
                         );
                     })
                     }
@@ -83,24 +98,51 @@ class Home extends Component {
                             ))}
                         </GridList>
                     </div>
-                    
-                
-                <div className="right">
-                    <Card>
-                        <CardContent>
-                            <FormControl className={classes.formControl}>
-                                <Typography className={classes.title} color="textSecondary">
-                                    Find Movies By
-                                </Typography>
-                            </FormControl>
-                            <FormControl className={classes.formControl}>
-                              <InputLabel htmlFor="movieName">by name</InputLabel>
-                              <Input id="movieName" />  
-                            </FormControl>
-                        </CardContent>
-                    </Card>
 
-                </div>
+
+                    <div className="right">
+                        <Card>
+                            <CardContent>
+                                <FormControl className={classes.formControl}>
+                                    <Typography className={classes.title} color="textSecondary">
+                                        Find Movies By
+                                </Typography>
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="movieName">by name</InputLabel>
+                                    <Input id="movieName" onChange={this.onnamechangeHandler} />
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel htmlFor="multiple-checkbox">Genre</InputLabel>
+
+                                </FormControl>
+                                <FormControl>
+                                    <Select
+                                        multiple
+                                        input={<Input id="multiple-checkbox" />}
+                                        renderValue={Selected => Selected.join(',')}
+                                        value={this.state.genres}
+                                        onChange={this.genrechangeHandler}
+                                    >
+                                        <MenuItem value="0">None</MenuItem>
+                                        {genres.map(genre => {
+                                            return (
+                                                <MenuItem key={genre.id} value={genre.name}>
+                                                    <Checkbox checked={this.state.genres.indexOf(genre.name) > -1} />
+                                                    <ListItemText primary={genre.name} />
+                                                </MenuItem>
+
+                                            );
+                                        })
+
+                                        }
+                                    </Select>
+                                </FormControl>
+
+                            </CardContent>
+                        </Card>
+
+                    </div>
                 </div>
             </div>
         )
