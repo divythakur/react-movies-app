@@ -129,6 +129,7 @@ class Home extends Component {
                                         renderValue={Selected => Selected.join(',')}
                                         value={this.state.genres}
                                         onChange={this.genrechangeHandler}
+                                        InputLabelProps={{shrink:true}}
                                     >
                                         <MenuItem value="0">None</MenuItem>
                                         {genres.map(genre => {
@@ -168,7 +169,6 @@ class Home extends Component {
                                       id="releaseDateStart"
                                       label="from start"
                                       type="date"
-                                      defaultValue=""
                                       InputLabelProps={{shrink:true}}
                                       />
 
