@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 import './Home.css';
+import Details from '../../screens/details/Details'
 import Header from '../../common/Header/Header.js';
 import { withStyles } from '@material-ui/core/styles';
 import moviesData from '../../common/moviesData'
@@ -18,7 +21,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem'
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -71,6 +74,16 @@ class Home extends Component {
     artistSelectHandler = event => {
         this.setState({ artists: event.target.value });
     }
+    onclickHandler=(mid)=>{
+        
+        ReactDOM.render(
+            <React.StrictMode>
+              <Details movieId={mid}/>
+            </React.StrictMode>,
+            document.getElementById('root')
+          );
+
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -94,7 +107,7 @@ class Home extends Component {
                     <div className="left">
                         <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                             {moviesData.map(movie => (
-                                <GridListTile className="released-movie-grid-item" key={"grid" + movie.id}>
+                                <GridListTile onClick={()=>this.onclickHandler(movie.id)} className="released-movie-grid-item" key={"grid" + movie.id}>
                                     <img src={movie.poster_url} className="movie-poster" alt={movie.title} />
                                     <GridListTileBar
                                         title={movie.title}
@@ -173,6 +186,19 @@ class Home extends Component {
                                       />
 
                                 </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <TextField
+                                      id="releaseDateENd"
+                                      label="from end"
+                                      type="date"
+                                      InputLabelProps={{shrink:true}}
+                                      />
+
+                                </FormControl>
+                                <FormControl className={classes.formControl}>
+                                    <Button variant="contained" color="primary">Apply</Button>
+                                </FormControl>
+
 
                             </CardContent>
                         </Card>
